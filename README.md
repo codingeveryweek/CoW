@@ -4,6 +4,6 @@ Welcome, this is just a small random thing I started. It is mostly a personal pr
 
 Posts
 
+[12/12/2019 - Random Container](../master/blog/003RandomContainer.md)
+[12/06/2019 - In Place List](../master/blog/002InPlaceList.md)  
 [11/26/2019 - Hello World](../master/blog/001HelloWorld.md)  
-[12/06/2019 - In Place List](../maser/blog/002InPlaceList.md)  
-12/09/2019 - In Place List Test  

@@ -5,13 +5,18 @@ BINPATH = $(ROOT)bin/
 #Requires manully run "git clone https://github.com/google/googletest.git" from directory ~/repos
 GOOGLETEST = ~/repos/googletest/
 
-all : inPlaceListExample hello
+all : inPlaceListExample hello inPlaceListTest randomContainerTest
+	$(BINPATH)inPlaceListTest
+	$(BINPATH)randomContainerTest
 
 inPlaceListExample : $(OBJPATH) $(OBJPATH)inPlaceListExample.o
 	g++ -o $(BINPATH)inPlaceListExample $(OBJPATH)inPlaceListExample.o 
 
 inPlaceListTest : $(OBJPATH) $(OBJPATH)inPlaceListTest.o $(OBJPATH)gtest.o $(OBJPATH)gtest_main.o
 	g++ $(OBJPATH)inPlaceListTest.o $(OBJPATH)gtest.o $(OBJPATH)gtest_main.o -lpthread -o $(BINPATH)inPlaceListTest
+
+randomContainerTest : $(OBJPATH) $(OBJPATH)randomContainerTest.o $(OBJPATH)gtest.o $(OBJPATH)gtest_main.o
+	g++ $(OBJPATH)randomContainerTest.o $(OBJPATH)gtest.o $(OBJPATH)gtest_main.o -lpthread -o $(BINPATH)randomContainerTest
 
 hello : $(OBJPATH) $(OBJPATH)hello.o 
 	g++ -o $(BINPATH)hello $(OBJPATH)hello.o
@@ -25,6 +30,9 @@ $(OBJPATH)inPlaceListExample.o : $(ROOT)examples/inPlaceListExample.cc
 $(OBJPATH)inPlaceListTest.o : $(ROOT)commontest/inPlaceListTest.cc
 	g++ -I ${GOOGLETEST}googletest/include -I ${ROOT} -c ${ROOT}/commontest/inPlaceListTest.cc -o $(OBJPATH)inPlaceListTest.o
 
+$(OBJPATH)randomContainerTest.o : $(ROOT)commontest/randomContainerTest.cc
+	g++ -I ${GOOGLETEST}googletest/include -I ${ROOT} -c ${ROOT}/commontest/randomContainerTest.cc -o $(OBJPATH)randomContainerTest.o
+
 $(OBJPATH)gtest.o : $(GOOGLETEST)googletest/src/gtest-all.cc
 	g++ -I ${GOOGLETEST}googletest/include -I ${GOOGLETEST}googletest -c $(GOOGLETEST)googletest/src/gtest-all.cc -o $(OBJPATH)gtest.o
 
@@ -36,3 +44,7 @@ $(OBJPATH) :
 
 $(BINPATH) :
 	mkdir $(BINPATH)
+
+clean :
+	rm $(BINPATH)*
+	rm $(OBJPATH)*
